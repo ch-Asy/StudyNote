@@ -1,11 +1,60 @@
-Git is a version control system.
-Git is free software.
-this is change
-this 2 change
-this 3 change
-123sdaada
-qw
-0[1;2Dada
-123456<C-F10><C-F10><C-F9><C-F8><S-F8><S-F9>
-sdas dvs scafa
-那算啦发哪里是你偶家的泼妇那烦恼是你了卡十年反抗那我发你；扣篮付款了安卡4143b774143b774143b774143b774143b77sdknalskfn alsnfja;o fja;sojf;o asjf;oasj ;fjs;fj;as jf;ajs;f 拉
+小结
+
+Git鼓励大量使用分支：
+创建文件夹：mkdir <name>
+
+查看当前目录内的文件：ls
+
+查看当前目录:pwd
+
+创建本地仓库：git init
+
+查看git状态：git status
+
+查看文件内容：cat <name>
+
+编辑文件内容：vim/vi <name>
+编辑时退出编辑：Ctrl + f2
+然后输入wq 退出编辑界面
+
+查看文件修改：git diff
+
+查看提交记录：git log /git log --pretty=oneline(格式化查看)
+
+查看git命令记录：git reflog
+
+将本地修改的提交到暂存区中：git add <name> /git add . （提交全部文件到暂存区）
+
+将暂存区中的修改提交到仓库：git commit - m "message"
+
+当本地修改后撤销修改：git checkout -- <name>
+
+当提交到暂存区撤销修改：git reset HEAD <name>
+
+回滚：git reset --hard HEAD^^^^ 有几个“^”就往前回滚几个版本
+
+根据编号回滚：git reset --hard HEAD <num> 可以恢复
+
+删除文件：git rm <name>
+
+撤销删除文件：git checkout -- <name> 
+gitcheckout其实是用版本库里的版本替换工作区的版本，无论工作区是修改还是删除，都可以“一键还原”。
+
+添加远程仓库：git remote add origin <address>
+
+将仓库的推送到远程仓库：git push -u origin master 
+此后，每次本地提交后，只要有必要，就可以使用命令git push origin master推送最新修改；
+
+从远程仓库克隆：git clone <address>
+
+查看分支：git branch
+
+创建分支：git branch <name>
+
+切换分支：git checkout <name>
+
+创建+切换分支：git checkout -b <name>
+
+合并某分支到当前分支：git merge <name>  当然，也不是每次合并都能Fast-forward，我们后面会讲其他方式的合并。
+
+删除分支：git branch -d <name>
