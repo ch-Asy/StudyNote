@@ -57,4 +57,4 @@ gitcheckout其实是用版本库里的版本替换工作区的版本，无论工
 
 合并某分支到当前分支：git merge <name>  当然，也不是每次合并都能Fast-forward，我们后面会讲其他方式的合并。
 
-删除分支：git branch -d <name>
+删除分支：git branch -d <name> 
