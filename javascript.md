@@ -101,6 +101,112 @@
 			方法=function/"function()"
 			返回一个可以传递给clearInterval从而汽车小对方法的周期性执行的值
 	- clearInterval（id）取消由setInterval（）设置的交互时间
+	- setTimeout(方法，延迟时间) 在载入后延迟指定时间后，去执行一次表达式，仅执行一次。
+	- clearTimeout(id) 停止计时器。
+- History对象
+
+	    history对象记录了用户曾经浏览过的页面（URL）。并可以实现浏览器前进与后退的相似导航的功能。
+	    window.history.[属性|方法]
+![](http://img.mukewang.com/53548c030001759e05840068.jpg)
+![](http://img.mukewang.com/53548c200001228206210123.jpg)
+	- back()加载history列表的前一个URL
+			
+			相当于window.history.go(-1);
+	- forward()加载history列表中的下一个URL
+
+			相当于window.history.go(1);
+	- go() 根据当前所处的页面，加载history列表中的某个对象的页面
+![](http://img.mukewang.com/5354947e00011a9a06490153.jpg)
+
+- Location对象
+
+		location用于获取或这只窗体的URL，并且可以用于解析URL。
+		location.[属性|方法]
+![](http://img.mukewang.com/53605c5a0001b26909900216.jpg)
+![](http://img.mukewang.com/5354b1d00001c4ec06220271.jpg)
+![](http://img.mukewang.com/5354b1eb00016a2405170126.jpg)
+
+- Navigator对象
+
+		navigator对象包含有关浏览器的信息，通常用于检测浏览器与操作系统的版本。
+		使用时：navigator--“N”要小写，小心别被坑
+![](http://img.mukewang.com/5354cff70001428b06880190.jpg)
+
+- screen对象
+
+		用于获取用户的屏幕信息
+		window.screen.属性
+		单位以像素计
+		可以不使用window前缀
+![](http://img.mukewang.com/5354d2810001a47706210213.jpg)
+	- 屏幕分辨率的高和宽
+		
+				window.screen对象包含有用户的屏幕信息
+				1. screen.height返回屏幕分辨率的高
+				2. screen.width返回屏幕分辨率的宽
+	- 屏幕可用高和宽度
+	
+				不同的系统的任务栏默认高度不一样，以及任务栏的位置可在屏幕上下左右任何位置，所以有可能可用宽度和高度不一样。
+				1. screen.availWidth属性返回访问者屏幕的宽度，减去界面特性，比如任务栏
+				2. screen.availHeight属性返回访问者屏幕的高度。
+
+#### DOM
+
+![](http://img.mukewang.com/5375c953000117ee05240129.jpg)
+
+- nodeName属性：节点的名称，是只读的
+	1. 元素节点的nodeName与标签名相同
+	2. 属性节点的nodeName是属性的名称
+	3. 文本节点的nodeName永远是#text
+	4. 文档节点的nodeName永远是#document
+- nodeValue属性：节点的值
+	1. 元素节点的nodeValue是undefined或null
+	2. 文本节点的nodeValue是文本自身
+	3. 属性节点的nodeValue是属性的值
+- nodeType属性：节点的类型，是只读的
+
+		元素类型    节点类型
+		元素        1
+		属性        2
+		文本        3
+		注释        8
+		文档        9
+
+![](http://img.mukewang.com/53f17a6400017d2905230219.jpg)
+
+- document.childNodes
+	1. 访问选定元素节点下的所有子节点的列表，返回的值可以看做是一个数组它具有length属性
+	2.  节点之间的空白符，在firefox、chrome、opera、safari浏览器是文本节点
+	3.  只是一级子节点 
+
+![](http://img.mukewang.com/538d29da000152db05360278.jpg)
+
+> getElementsByName()
+
+		返回带有指定名称的节点对象的集合
+		1. 因为文档中的name属性不唯一，所以getElementsByName()方法返回的是元素的数组，而不是一个元素。
+		2. 和数组类似也有length属性可以和访问数组一样的方法来访问，从0开始。
+
+> getElementsByTagName()
+
+		返回带有指定标签名的节点对象的集合。返回元素的顺序是他们在文档中的顺序
+		1. TagName是标签的名称，如：p a input
+		2. 和数组类似也有length属性可以和访问数组一样的方法来访问，从0开始。
+
+![](http://img.mukewang.com/5405263300018bcf05760129.jpg)
+
+> getAttribute(name)
+
+		通过元素节点的属性名称获取属性的值
+		name：想要查询的元素节点的属性名称
+> setAttribute(name,value)
+
+		增加一个指定名称和值得新属性，或者把一个现有的属性设定为指定的属性
+		name:要设置的属性名
+		value:要设置的属性值
+		1. 把现有的属性设置为指定的值，如果不存在具有指定名称的属性，该方法将创建一个新的属性
+		2. 类似于getAttribute()方法，setAttribute()只能通过元素节点对象调用的属性。
+
 #### JavaScript方法 
 
 > Document.write()
