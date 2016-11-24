@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>速度动画</title>
+  <style type="text/css">
+    *{
+      margin: 0px;
+      padding: 0px;
+     }
+    .onHidden{
+      width: 120px;
+      height: 100px;
+      background-color:#f00;
+      /*margin-left: -120px;*/
+      position: relative;
+      left: -200px;
+    }
+    .onHidden span{
+      display: block;
+      background-color: #0f0;
+      width: 30px;
+      height: 40px;
+      position: absolute;
+      top: 30px;
+      left: 200px;
+    }
+  </style>
+  <script type="text/javascript">
+    window.onload=function(){
+        var btn=document.getElementById('startAnim');
+        btn.onmouseover=function(){
+          beginAnim(0);
+        };
+        btn.onmouseout=function(){
+          beginAnim(-200);
+        };
+
+    };  
+    function beginAnim(target) {
+      var animBox=document.getElementById('animBox');
+      var timer=null;
+      var speed=(target-animBox.offsetLeft)/20;
+      speed=speed>0?Math.ceil(speed):Math.floor(speed);
+      clearInterval(timer);
+      timer=setInterval(function(){
+        if (target==animBox.offsetLeft) {
+          clearInterval(timer);
+        }else{
+          //不要忘了拼接“px”否则不会有任何效果
+          animBox.style.left=animBox.offsetLeft+speed+"px";
+        }
+      },100);
+    }
+  </script>
+</head>
+<body>
+   <div id="animBox" class="onHidden"><span id="startAnim">分享</span></div> 
+</body>
+</html>

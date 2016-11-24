@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>计时器</title>
+<script type="text/javascript">
+  var EventUtils={
+  	/**
+  	 * [addEvent description]
+  	 * @param {[type]} element [description] 要添加事件的控件
+  	 * @param {[type]} type    [description] 要添加的事件类型 不需要加‘on’
+  	 * @param {[type]} fun     [description] 要添加的事件方法
+  	 */
+  	//给某个控件添加事件
+  	addEvent:function(element,type,fun){
+  		if (element.addEventListener) {
+  			element.addEventListener(type,fun,false);
+  		}else if (element.attachEvent) {
+  			element.attachEvent('on'+type,fun);
+  		}else{
+  			//element[]===element.
+  			element['on'+type]=fun;
+  		}
+    },
+    //给某个控件取消事件
+    removeEvent:function(element,type,fun){
+  		if (element.addEventListener) {
+  			element.removeEventListener(type,fun,false);
+  		}else if (element.attachEvent) {
+  			element.detachEvent('on'+type,fun);
+  		}else{
+  			//element[]===element.
+  			element['on'+type]=null;
+  		}
+    },
+    //获取event因为ＩＥ１０一下event对象要window.event获取
+  	getEvent:function(event){
+  		return event?event:window.event;
+ 	 },
+   //获取事件的target属性，因为不同的浏览器获取的方式不一样
+ 	 getEventTarget:function(event){
+   	 	event=getEvent(event);
+      return event.target||event.srcElement;  
+ 	 },
+   //冒泡拦截
+   setStopPropagation:function(event){
+      if (event.stopPropagation) {
+        event.stopPropagation();
+      }else{
+        event.cancelBubble=false;
+      }
+   },
+   //拦截默认行为
+   setpreventDefault:function(event){
+      if (event.preventDefault) {
+        event.preventDefault();
+      }else{
+        event.returnValue=false;
+      }
+   }
+
+  };
+window.onload=function(){
+    var box=document.getElementById('box');
+  var child=document.getElementById('child');
+  EventUtils.addEvent(box,'click',function(){
+    alert('我是box的事件');
+  });
+
+  EventUtils.removeEvent(box,'click',function(){
+    alert('我是box的事件');
+  });
+  EventUtils.addEvent(child,'click',function(event){
+    alert('我是child的事件');
+    event=EventUtils.getEvent(event);
+    EventUtils.setStopPropagation(event);
+    EventUtils.setpreventDefault(event);
+  });
+};
+</script>
+</head>
+<body>
+
+<!-- //href="http://www.baidu.com" -->
+  <div id="box">
+      <a id="child" href="http://www.baidu.com" >跳转</a>
+  </div>
+</body>
+</html>

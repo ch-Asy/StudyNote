@@ -1,6 +1,18 @@
 # JavaScript #
 
 #### JavaScript语法
+
+> 获取属性
+
+	当style不是行内属性的时候就不能使用style获取控件的属性
+	需要
+	function getStyle(obj,attr){
+			if (obj.currentStyle) {
+				return obj.currentStyle[attr];//针对IE
+			}else{
+				return getComputedStyle(obj,false)[attr];//针对火狐
+			}
+		}
 	
 > 变量 
 
@@ -20,13 +32,84 @@
 	
 ![](http://img.mukewang.com/53e198540001b66404860353.jpg)
 
+> 事件流
+
+1. 事件冒泡：
+
+		即事件最开始是由最具体的元素（文档中嵌套层次最深的那个节
+		点）接收，然后逐级向上传播到最不具体的元素（文档）。
+2. 事件捕获：
+
+		不太具体的节点应该最先接收到事件，而具体的节点应该最后接收到事件。
+
+> 使用事件处理程序
+
+1. HTML事件处理程序
+
+		<input type=“button” value=“按钮” onclick="method()">
+	- 缺点：
+		
+				1.HTML和js代码紧密的耦合在一起
+2. DOM0级事件处理程序
+
+		传统方式：把一个函数赋值给一个事件的处理程序属性用的比较多的方法   简单   跨浏览器的优势
+		var btn=document.getElementById('btn');
+		btn.onclick=function(){//匿名函数或者方法
+		}
+		btn.onclick=null;//取消事件
+3. DOM2级事件处理程序
+
+		定义了两个方法：用于处理指定和删除时间处理程序的操作
+		addEventListener()和removeEventListener()
+		接受三个参数：要处理的事件名、作为事件处理程序的函数名、布尔值
+		事件名前的‘on’去掉
+4. IE事件处理程序
+		
+		IE8以及更早的版本只支持冒泡
+		attachEvent() detachEvent()
+		接受2个参数：事件处理程序的名称和事件处理程序函数
+5.跨浏览器事件处理程序
+	
+		  var EventUtils={
+  			/**
+  			 * [addEvent description]
+  			 * @param {[type]} element [description] 要添加事件的控件
+  			 * @param {[type]} type    [description] 要添加的事件类型 不需要加‘on’
+  			 * @param {[type]} fun     [description] 要添加的事件方法
+  			 */
+  			addEvent:function(element,type,fun){
+  				if (element.addEventListener) {
+  					element.addEventListener(type,fun,false);
+  				}else if (element.attachEvent) {
+  					element.attachEvent('on'+type,fun);
+  				}else{
+  					//element[]===element.
+  					element['on'+type]=fun;
+  				}
+   		 },
+    		removeEvent:function(element,type,fun){
+  				if (element.addEventListener) {
+  					element.removeEventListener(type,fun,false);
+  				}else if (element.attachEvent) {
+  					element.detachEvent('on'+type,fun);
+  				}else{
+  					//element[]===element.
+  					element['on'+type]=null;
+  				}
+   		 }
+
+  		};
+	 
+
 #### JavaScript对象
 
 > Date日期对象
 
 	var date=new Date();获取当前电脑系统时间
 	var date=new Date(2012,2,31);
+	var endTime=new Date("2016/11/24,16:50:00");月份和正常的一样
 	var date=new Date('Oct 1,2012');自定义时间初始值
+	
 ![](http://img.mukewang.com/555c650d0001ae7b04180297.jpg)
 
 - getDay()返回星期，返回的是0-6的数字。0表示星期日，如果要返回星期几，可以用一维数组来完成。
@@ -103,7 +186,8 @@
 	- clearInterval（id）取消由setInterval（）设置的交互时间
 	- setTimeout(方法，延迟时间) 在载入后延迟指定时间后，去执行一次表达式，仅执行一次。
 	- clearTimeout(id) 停止计时器。
-- History对象
+
+>History对象
 
 	    history对象记录了用户曾经浏览过的页面（URL）。并可以实现浏览器前进与后退的相似导航的功能。
 	    window.history.[属性|方法]
@@ -118,7 +202,37 @@
 	- go() 根据当前所处的页面，加载history列表中的某个对象的页面
 ![](http://img.mukewang.com/5354947e00011a9a06490153.jpg)
 
-- Location对象
+> 事件对象
+
+		在触发DOM上的事件时都会会产生一个对象
+1. DOM中的事件对象
+
+		- type属性用于获取事件类型
+		- target属性用于获取事件目标对象
+		- stopPropagation（）方法用于拦截冒泡传播到下一级
+		- preventDefault（）方法阻止事件的默认行为
+
+2. IE中的事件对象
+
+		- type属性用于获取事件类型
+		- srcElement属性用来获取事件目标对象
+		- cancelbubble属性，用于事件冒泡
+		- returnValue属性用于阻止事件默认行为
+
+3. Event 键盘事件
+		
+		 document.onkeyup=function(event) {
+   	     event=event||window.event;
+          console.log(event.keyCode);
+          if (event.keyCode===13) {
+              if (flag===1) {
+                playFun();
+              }else{
+                stopFun();
+              }
+          }
+  		  };
+> Location对象
 
 		location用于获取或这只窗体的URL，并且可以用于解析URL。
 		location.[属性|方法]
@@ -126,13 +240,13 @@
 ![](http://img.mukewang.com/5354b1d00001c4ec06220271.jpg)
 ![](http://img.mukewang.com/5354b1eb00016a2405170126.jpg)
 
-- Navigator对象
+> Navigator对象
 
 		navigator对象包含有关浏览器的信息，通常用于检测浏览器与操作系统的版本。
 		使用时：navigator--“N”要小写，小心别被坑
 ![](http://img.mukewang.com/5354cff70001428b06880190.jpg)
 
-- screen对象
+> screen对象
 
 		用于获取用户的屏幕信息
 		window.screen.属性
@@ -274,3 +388,53 @@
 
 	用于修改元素的class 的名字从而修改样式
 	Object.className=value
+
+####浏览器窗口可视区域大小
+- 获取浏览器窗口的尺寸（浏览器的视口，不包括工具栏和滚动条）的方法：
+	1. 对于IE9+、chrome、Firefox、opera以及Safari:
+		- window.innerWidth  -- 浏览器窗口的内部宽度
+		- window.innerHeight -- 浏览器窗口的内部高度
+	2. 对于IE8，7，6，5：
+		- document.documentElement.clientWidth 表示HTML文档所在窗口的当前宽度
+		- document.documentElement.clientHeight 表示HTML文档所在窗口当前的高度
+- 在不同浏览器都实用的JavaScript方案
+			
+			var w= document.documentElement.clientWidth
+     		 || document.body.clientWidth;
+			var h= document.documentElement.clientHeight
+      		 || document.body.clientHeight;
+####网页尺寸
+
+[http://blog.csdn.net/xiebaochun/article/details/38382169 ](http://blog.csdn.net/xiebaochun/article/details/38382169 )
+
+> scroll
+	
+		scrollHeight和scrollWidth，获取页面内容高度和宽度
+		*还可以获取DOM元素中内容实际占用的高度和宽度。
+- 针对IE，opera
+		
+		scrollHeight是网页内容的实际高度，可以小于clientHeight
+- 针对NS,FF
+
+		scrollHeight是网页内容高度，不过最小值是clientHeight，也就是说页面内容实际高度小于clientHeight时，scrollHeight返回clientHeight
+- 浏览器兼容
+
+		var w=document.documentElement.scrollWidth
+  		 || document.body.scrollWidth;
+		var h=document.documentElement.scrollHeight
+  		 || document.body.scrollHeight;
+
+> offset
+
+		offsetHeight和offsetWidth，获取网页内容高度和宽度（包括滚动条等边线，会随窗口显示的大小改变）
+- 值
+
+		offsetHeight=clientHeight+滚动条+边框；
+
+- 浏览器兼容
+
+		var w= document.documentElement.offsetWidth
+    	  || document.body.offsetWidth;
+		var h= document.documentElement.offsetHeight
+  		  || document.body.offsetHeight;
+

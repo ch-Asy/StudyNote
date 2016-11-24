@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script type="text/javascript">
+    window.onload=function(){
+     
+      jisuan2();
+    };
+    function jisuan2(){
+      var startTime=new Date();
+      var endTime=new Date("2016/11/24,16:50:00");
+      var thisTime=endTime.getTime()-startTime.getTime();
+      var timeBox=document.getElementById('showTime');
+      var second=parseInt(thisTime/1000%60);
+      var minutes=parseInt(thisTime/(1000*60)%60);
+      var hours=parseInt(thisTime/(1000*60*60)%24);
+      var day=parseInt(thisTime/(1000*60*60*24));
+     
+      if (thisTime<=0) {
+           timeBox.innerHTML="开始抢了";
+           clearTimeout(t);
+      }else{
+        timeBox.innerHTML=day+"天"+hours+"小时"+minutes+"分"+second+"秒";
+      }
+     var t= setTimeout(jisuan2,500);
+    }
+    function jisuan(){
+      var startTime=new Date();
+      var endTime=new Date("2016/11/24,16:38:00");
+      var thisTime=endTime.getTime()-startTime.getTime();
+      var timeBox=document.getElementById('showTime');
+      var second=thisTime/1000;
+      var minutes=second/60;
+      var hours=minutes/60;
+      var day=hours/24;
+      // alert(day);
+      var thisDay=Math.floor(day);
+      var thatHours=(day-thisDay)*24;
+      var thisHours=Math.floor(thatHours);
+      var thatMinutes=(thatHours-thisHours)*60;
+      var thisMinutes=Math.floor(thatMinutes);  
+      var thatSecond=(thatMinutes-thisMinutes)*60;
+      var thisSecond=Math.floor(thatSecond);
+      if (thisTime<=0) {
+           timeBox.innerHTML="开始抢了";
+           clearTimeout(t);
+      }else{
+        timeBox.innerHTML=thisDay+"天"+thisHours+"小时"+thisMinutes+"分"+thisSecond+"秒";
+      }
+     var t= setTimeout(jisuan,500);
+    }
+  </script>
+</head>
+<body>
+  <div id="showTime"></div>
+</body>
+</html>

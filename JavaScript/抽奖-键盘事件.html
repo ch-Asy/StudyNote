@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>计时器</title>
+<style type="text/css">
+  *{
+    margin: 0px;
+    padding: 0px;
+  }
+  .title{
+    margin: 100px;
+    font-size: 24px;
+    text-align: center;
+  }
+  .btn{
+    text-align: center;
+  }
+  .btn span{
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+    background: #ff5651;
+    padding: 6px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+  }
+</style>
+<script type="text/javascript">
+
+var timer=null;
+var flag=1;
+var data=['iPhone 7','ipad','三星笔记本','佳能相机','谢谢惠顾'];
+window.onload=function(){
+    var title=document.getElementById('title');
+    var playbtn=document.getElementById('playbtn');
+    var stopbtn=document.getElementById('stopbtn');
+    playbtn.onclick=playFun;
+    stopbtn.onclick=stopFun;
+    document.onkeyup=function(event) {
+      event=event||window.event;
+          console.log(event.keyCode);
+          if (event.keyCode===13) {
+              if (flag===1) {
+                playFun();
+              }else{
+                stopFun();
+              }
+          }
+    };
+
+ };
+  function playFun() {
+        var title=document.getElementById('title');
+        var playbtn=document.getElementById('playbtn');
+        playbtn.style.background='#ccc';
+        clearInterval(timer);
+        timer=setInterval(function(){
+            var position=Math.floor(Math.random()*data.length);
+            title.innerHTML=data[position];
+        },50);
+        flag=0;
+  }
+  function stopFun() {
+      var playbtn=document.getElementById('playbtn');
+      playbtn.style.background='#ff5651';
+      clearInterval(timer);
+      flag=1;
+  }
+</script>
+</head>
+<body>
+
+  <p id="title" class="title">开始抽奖啦!</p>
+  <div class="btn">
+    <span id="playbtn">开 始</span>
+    <span id="stopbtn">停 止</span>
+  </div>
+</body>
+</html>
